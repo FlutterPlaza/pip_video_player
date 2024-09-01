@@ -1,0 +1,29 @@
+name: pip_video_player_android
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/pip_video_player_android.yaml"
+      - "pip_video_player_android/**"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/pip_video_player_android.yaml"
+      - "pip_video_player_android/**"
+
+jobs:
+  build:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+    with:
+      flutter_channel: stable
+      flutter_version: 3.22.0
+      working_directory: pip_video_player_android
+
+  pana:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/pana.yml@v1
+

@@ -1,0 +1,63 @@
+plugins {
+    id "com.android.library"
+    id "kotlin-android"
+}
+
+group 'com.flutterplaza.pipvideoplayer'
+version '1.0-SNAPSHOT'
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+android {
+    if (project.android.hasProperty("namespace")) {
+        namespace 'com.flutterplaza.pipvideoplayer'
+    }
+
+    compileSdk 34
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+    }
+
+    defaultConfig {
+        minSdkVersion 19
+    }
+
+    dependencies {
+        testImplementation 'org.jetbrains.kotlin:kotlin-test'
+        testImplementation 'org.mockito:mockito-core:5.0.0'
+    }
+
+    testOptions {
+        unitTests.all {
+            useJUnitPlatform()
+
+            testLogging {
+               events "passed", "skipped", "failed", "standardOut", "standardError"
+               outputs.upToDateWhen {false}
+               showStandardStreams = true
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.media3:media3-common:1.4.1'
+    implementation 'androidx.media3:media3-exoplayer:1.4.1'
+    implementation 'androidx.media3:media3-ui:1.4.1'
+}
